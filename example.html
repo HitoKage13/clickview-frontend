@@ -345,6 +345,7 @@
                             // If the tags array contains pieces of the tag search, add it to the filter array.
                             if (tagg[j].toLowerCase().includes(this.tagSearch.toLowerCase())) {
                                 filter.push(this.videos[i]);
+                                break;
                             }
                         }
                     }
