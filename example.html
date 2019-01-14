@@ -326,20 +326,6 @@
                 	"tags": []
                 }]
             },
-            methods: {
-                // WIP pushes folder names into an array
-                folderPush() {
-                    let folderList = [];
-                    let video = this.videos;
-                    for (i = 0; i < videos.length; i++) {
-                        let curr = video.folder.split('->');
-                        if (folderList.includes(curr) != -1) {
-                            folderList.push(curr);
-                        }
-                    }
-                    console.log(folderList);
-                }
-            },
             computed: {
                 // Filters out based on tag
                 filteredList() {
@@ -358,7 +344,6 @@
                 },
 
                 // Attempt to start folder filters
-
                 folderList() {
                     folder = [];
                     let video = this.videos;
@@ -380,7 +365,7 @@
                     }
 
                     return folder;
-                }
+                },
             }
         })
 
