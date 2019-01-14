@@ -37,10 +37,10 @@
             <!-- Home tab -->
             <div class="tabContent" id="home" v-if="toShow == 'home'" v-bind="videos"><div v-for="video in videos">
             <img v-bind:src="video.thumbnail"/></img>
-            </br> Date Created: {{ video.dateCreated }}
-            </br> Name: {{ video.name}}
-            </br> Description: {{ video.description}}
-            </br> Tags: <div v-for="tag in video.tags">{{ tag }}</div>
+            </br> <b>Date Created:</b> {{ video.dateCreated }}
+            </br> <b>Name:</b> {{ video.name}}
+            </br> <b>Description:</b> {{ video.description}}
+        </br> <b>Tags:</b> <div v-for="tag in video.tags">{{ tag }}</div>
     </div></div>
 
             <!-- Folder tab -->
@@ -53,10 +53,10 @@
             <!-- Search tab -->
             <div class="tabContent" id="search" v-if="toShow == 'search'" v-bind="videos"><div v-for="video in filteredList">
             <img v-bind:src="video.thumbnail"/></img>
-            </br> Date Created: {{ video.dateCreated }}
-            </br> Name: {{ video.name}}
-            </br> Description: {{ video.description}}
-            </br> Tags: <div v-for="tag in video.tags">{{ tag }}</div>
+            </br> <b>Date Created:</b> {{ video.dateCreated }}
+            </br> <b>Name:</b> {{ video.name}}
+            </br> <b>Description:</b> {{ video.description}}
+        </br> <b>Tags:</b> <div v-for="tag in video.tags">{{ tag }}</div>
     </div></div>
             </div>
         </div>
