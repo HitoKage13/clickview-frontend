@@ -35,7 +35,7 @@
         <!-- Tab content -->
         <div class="tabContainer">
             <!-- Home tab -->
-            <div class="tabContent" id="home" v-if="toShow == 'home'" v-bind="videos"><div v-for="video in filteredList">
+            <div class="tabContent" id="home" v-if="toShow == 'home'" v-bind="videos"><div v-for="video in videos">
             <img v-bind:src="video.thumbnail"/></img>
             </br> Date Created: {{ video.dateCreated }}
             </br> Name: {{ video.name}}
