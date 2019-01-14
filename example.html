@@ -34,6 +34,7 @@
 
         <!-- Tab content -->
         <div class="tabContainer">
+            <!-- Home tab -->
             <div class="tabContent" id="home" v-if="toShow == 'home'" v-bind="videos"><div v-for="video in filteredList">
             <img v-bind:src="video.thumbnail"/></img>
             </br> Date Created: {{ video.dateCreated }}
@@ -41,11 +42,15 @@
             </br> Description: {{ video.description}}
             </br> Tags: <div v-for="tag in video.tags">{{ tag }}</div>
     </div></div>
+
+            <!-- Folder tab -->
             <div class="tabContent" id="folders" v-if="toShow == 'folders'">
                 <div v-for="folder in folderList"><img src="folder.png" id="folder-pic"></img>
                 </br> {{ folder }}
             </div>
             </div>
+
+            <!-- Search tab -->
             <div class="tabContent" id="search" v-if="toShow == 'search'" v-bind="videos"><div v-for="video in filteredList">
             <img v-bind:src="video.thumbnail"/></img>
             </br> Date Created: {{ video.dateCreated }}
@@ -59,9 +64,11 @@
 
     <script>
 
+        // Search query data bind
         let data = {
             tagSearch: ""
         }
+
         var app = new Vue({
             el: '#root',
             data: {
@@ -325,13 +332,17 @@
                 }]
             },
             computed: {
-                // Filters out based on tag
+                // Filters out based on tag.
                 filteredList() {
+                    // Creates an empty filter array.
                     filter = [];
                     let video = this.videos;
+                    // For each video, create an instance of tag.
                     for (i = 0; i < this.videos.length; i++) {
                         let tagg = this.videos[i].tags;
+                        // For each tag in the tags array.
                         for (j = 0; j < tagg.length; j++) {
+                            // If the tags array contains pieces of the tag search, add it to the filter array.
                             if (tagg[j].toLowerCase().includes(this.tagSearch.toLowerCase())) {
                                 filter.push(this.videos[i]);
                             }
@@ -341,24 +352,28 @@
                     return filter;
                 },
 
-                // Attempt to start folder filters
+                // Attempt to start folder filters in the last hour of the practical.
                 folderList() {
+                    // Creates an empty folder array.
                     folder = [];
                     let video = this.videos;
-                    console.log(video);
+                    // For each video
                     for (i = 0; i < this.videos.length; i++) {
                         let folderr = this.videos[i].folder;
+                        // This is a tiny bit hard-code, tried to get as much done as I can.
                         let trunc = "";
                         for (j = 0; j < folderr.length; j++) {
+                            // Breaks when -> shows up.
                             if (folderr[j] == "-") {
                                 break;
                             } else {
+                                // Creates the word.
                                 trunc = trunc + folderr[j];
                             }
                         }
+                        // Pushes the folder name onto the folder array if it is not already there.
                         if (folder.includes(trunc) == false) {
                             folder.push(trunc);
-                            console.log(folder);
                         }
                     }
 
