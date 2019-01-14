@@ -18,29 +18,54 @@
 
     <div id="root">
 
-        <input id="search" placeholder="Search by tag">
+        <input id="search" placeholder="Search by tag" v-model="tagSearch">
+        <div class="tabs">
+            <ul>
+                <li :class="toShow == 'home' ? 'is-active':''"><a @click="toShow = 'home'">Home</a></li>
+                <li :class="toShow == 'folders' ? 'is-active':''"><a @click="toShow = 'folders'">Folders</a></li>
+                <li :class="toShow == 'search' ? 'is-active':''"><a @click="toShow = 'search'">Search</a></li>
+            </ul>
+        </div>
 
-        <div id="container">
+        <p>Will find {{ tagSearch }}</p>
+
+        <div class="tabContainer">
+            <p class="tabContent">{{ content[toShow] }}</p>
+            <div v-for="video in filteredList">
+            <img v-bind:src="video.thumbnail"/></img>
+            </br> {{ video.dateCreated }}
+            </br> {{ video.name}}
+            </br> {{ video.description}}</div>
+        </div>
+        <!-- <div id="container">
             <div v-for="video in videos">
                 <img :src="video.thumbnail"></img>
                 </br> {{ video.dateCreated }}
                 </br> {{ video.name}}
                 </br> {{ video.description}}
             </div>
-        </div>
+        </div> -->
     </div>
 
 
     <script>
+        let data = {
+            tagSearch: ""
+        }
         var app = new Vue({
             el: '#root',
             data: {
-                toShow: "pictures",
+                tagSearch: "",
+                toShow: "home",
                 content: {
-                  pictures: 'lol',
-                  music: 'haha',
-                  videos: 'rofl',
-                  documents: 'lmao'
+                  home: `<div v-for="video in videos">
+                      <img :src="video.thumbnail"></img>
+                      </br> {{ video.dateCreated }}
+                      </br> {{ video.name}}
+                      </br> {{ video.description}}
+                  </div>`,
+                  search: ``,
+                  folders: ""
                 },
               videos: [{
               	"name": "Catalyst: Out of Africa",
@@ -298,8 +323,14 @@
               	"folder": "Senior->English",
               	"tags": []
               }]
-
-            }
+          },
+          computed: {
+              filteredList() {
+                  return this.videos.filter(video => {
+                    return video.name.toLowerCase().includes(this.tagSearch.toLowerCase())
+                  })
+              }
+          }
         })
     </script>
 </body>
