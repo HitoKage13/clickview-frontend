@@ -22,7 +22,7 @@
 
     <div id="root">
 
-        <input id="search" placeholder="Search by tag" v-model="tagSearch">
+        <input id="search" v-if="toShow == 'search'" placeholder="Search by tag" v-model="tagSearch">
         <div class="tabs">
             <ul>
                 <!-- Tabs for each task -->
@@ -36,7 +36,7 @@
 
         <!-- Tab content -->
         <div class="tabContainer">
-            <div class="tabContent" id="home" v-if="toShow == 'home'"><div v-for="video in videos">
+            <div class="tabContent" id="home" v-if="toShow == 'home'" v-bind="videos"><div v-for="video in filteredList">
             <img v-bind:src="video.thumbnail"/></img>
             </br> Date Created: {{ video.dateCreated }}
             </br> Name: {{ video.name}}
@@ -67,7 +67,6 @@
         var app = new Vue({
             el: '#root',
             data: {
-                folderList: [],
                 tagSearch: "",
                 toShow: "home",
                 videos: [{
@@ -356,7 +355,24 @@
                     }
 
                     return filter;
-                }
+                },
+
+                // Attempt to start folder filters
+                
+                /* folderList() {
+                    folder = [];
+                    let video = this.videos;
+                    for (i = 0; i < this.videos.length; i++) {
+                        let folderr = this.videos[i].folders.split("->");
+                        console.log(folder);
+                        if (folder.includes(folderr) == false) {
+                            folder.push(folderr);
+                        }
+                        console.log(folder);
+                    }
+
+                    return folder;
+                } */
             }
         })
 
