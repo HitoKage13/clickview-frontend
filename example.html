@@ -44,8 +44,8 @@
             </br> Tags: <div v-for="tag in video.tags">{{ tag }}</div>
     </div></div>
             <div class="tabContent" id="folders" v-if="toShow == 'folders'">
-                <div v-for="video in videos"><img src="folder.png" id="folder-pic"></img>
-                </br> {{ video.folder }}
+                <div v-for="folder in folderList"><img src="folder.png" id="folder-pic"></img>
+                </br> {{ folder }}
             </div>
             </div>
             <div class="tabContent" id="search" v-if="toShow == 'search'" v-bind="videos"><div v-for="video in filteredList">
@@ -358,21 +358,29 @@
                 },
 
                 // Attempt to start folder filters
-                
-                /* folderList() {
+
+                folderList() {
                     folder = [];
                     let video = this.videos;
+                    console.log(video);
                     for (i = 0; i < this.videos.length; i++) {
-                        let folderr = this.videos[i].folders.split("->");
-                        console.log(folder);
-                        if (folder.includes(folderr) == false) {
-                            folder.push(folderr);
+                        let folderr = this.videos[i].folder;
+                        let trunc = "";
+                        for (j = 0; j < folderr.length; j++) {
+                            if (folderr[j] == "-") {
+                                break;
+                            } else {
+                                trunc = trunc + folderr[j];
+                            }
                         }
-                        console.log(folder);
+                        if (folder.includes(trunc) == false) {
+                            folder.push(trunc);
+                            console.log(folder);
+                        }
                     }
 
                     return folder;
-                } */
+                }
             }
         })
 
