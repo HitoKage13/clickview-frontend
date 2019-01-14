@@ -22,7 +22,7 @@
 
     <div id="root">
 
-        <input id="search" placeholder="Search by name or tag" v-model="tagSearch">
+        <input id="search" placeholder="Search by tag" v-model="tagSearch">
         <div class="tabs">
             <ul>
                 <!-- Tabs for each task -->
@@ -48,7 +48,7 @@
                 </br> {{ video.folder }}
             </div>
             </div>
-            <div class="tabContent" id="search" v-if="toShow == 'search'"><div v-for="video in filteredList">
+            <div class="tabContent" id="search" v-if="toShow == 'search'" v-bind="videos"><div v-for="video in filteredList">
             <img v-bind:src="video.thumbnail"/></img>
             </br> Date Created: {{ video.dateCreated }}
             </br> Name: {{ video.name}}
@@ -342,14 +342,20 @@
                 }
             },
             computed: {
-                // Filters out based on name or tag
+                // Filters out based on tag
                 filteredList() {
+                    filter = [];
                     let video = this.videos;
-                    let tagg = this.videos.forEach.tags;
-                    console.log(tagg);
-                    return this.videos.filter(video => {
-                        return video.name.toLowerCase().includes(this.tagSearch.toLowerCase() || video.tags.forEach)
-                    })
+                    for (i = 0; i < this.videos.length; i++) {
+                        let tagg = this.videos[i].tags;
+                        for (j = 0; j < tagg.length; j++) {
+                            if (tagg[j].toLowerCase().includes(this.tagSearch.toLowerCase())) {
+                                filter.push(this.videos[i]);
+                            }
+                        }
+                    }
+
+                    return filter;
                 }
             }
         })
